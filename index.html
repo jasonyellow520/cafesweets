@@ -1,0 +1,808 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Cafe Sweets — Arcadia, CA</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Inter:wght@300;400;500&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --cream:   #f7f3ee;
+      --warm:    #ede6db;
+      --sand:    #c9b99a;
+      --brown:   #7a5c3e;
+      --dark:    #2b1f14;
+      --muted:   #8a7a6a;
+      --accent:  #b07d4e;
+      --white:   #ffffff;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--cream);
+      color: var(--dark);
+      font-size: 15px;
+      line-height: 1.7;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 5vw;
+      height: 64px;
+      background: rgba(247,243,238,0.92);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(122,92,62,0.12);
+      transition: background 0.3s;
+    }
+    .nav-logo {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.35rem;
+      font-weight: 400;
+      letter-spacing: 0.08em;
+      color: var(--dark);
+      text-decoration: none;
+    }
+    .nav-links {
+      display: flex;
+      gap: 2.5rem;
+      list-style: none;
+    }
+    .nav-links a {
+      font-size: 0.72rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--muted);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+    .nav-links a:hover { color: var(--accent); }
+
+    /* ── HERO ── */
+    #hero {
+      position: relative;
+      height: 100vh;
+      min-height: 600px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+    }
+    .hero-bg {
+      position: absolute;
+      inset: 0;
+      background-image: url('https://s3-media0.fl.yelpcdn.com/bphoto/wLb6mZ9cNLOwkfY717XqGg/o.jpg');
+      background-size: cover;
+      background-position: center 40%;
+      filter: brightness(0.45);
+      transform: scale(1.04);
+      transition: transform 8s ease-out;
+    }
+    #hero:hover .hero-bg { transform: scale(1.0); }
+    .hero-content {
+      position: relative;
+      text-align: center;
+      color: var(--white);
+      padding: 0 2rem;
+      max-width: 700px;
+    }
+    .hero-eyebrow {
+      font-size: 0.68rem;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--sand);
+      margin-bottom: 1.4rem;
+    }
+    .hero-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(3.2rem, 8vw, 6rem);
+      font-weight: 300;
+      line-height: 1.05;
+      letter-spacing: 0.02em;
+      margin-bottom: 1.6rem;
+    }
+    .hero-sub {
+      font-size: 0.9rem;
+      font-weight: 300;
+      color: rgba(255,255,255,0.75);
+      letter-spacing: 0.04em;
+      margin-bottom: 2.8rem;
+    }
+    .hero-cta {
+      display: inline-block;
+      padding: 0.85rem 2.6rem;
+      border: 1px solid rgba(255,255,255,0.55);
+      color: var(--white);
+      text-decoration: none;
+      font-size: 0.72rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      transition: background 0.25s, border-color 0.25s;
+    }
+    .hero-cta:hover {
+      background: rgba(255,255,255,0.12);
+      border-color: rgba(255,255,255,0.9);
+    }
+    .hero-scroll {
+      position: absolute;
+      bottom: 2.5rem;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.5rem;
+      color: rgba(255,255,255,0.45);
+      font-size: 0.62rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+    }
+    .hero-scroll::after {
+      content: '';
+      display: block;
+      width: 1px;
+      height: 40px;
+      background: rgba(255,255,255,0.3);
+      animation: scrollLine 2s ease-in-out infinite;
+    }
+    @keyframes scrollLine {
+      0%,100% { opacity: 0.3; transform: scaleY(1); }
+      50% { opacity: 0.8; transform: scaleY(0.6); }
+    }
+
+    /* ── SECTIONS ── */
+    section { padding: 7rem 5vw; }
+    .section-label {
+      font-size: 0.65rem;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 1rem;
+    }
+    .section-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(2rem, 4vw, 3rem);
+      font-weight: 300;
+      line-height: 1.15;
+      color: var(--dark);
+      margin-bottom: 1.8rem;
+    }
+    .section-body {
+      font-size: 0.9rem;
+      color: var(--muted);
+      max-width: 560px;
+      line-height: 1.85;
+    }
+
+    /* ── ABOUT ── */
+    #about {
+      background: var(--white);
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 6vw;
+      align-items: center;
+    }
+    .about-img-wrap {
+      position: relative;
+      aspect-ratio: 4/5;
+      overflow: hidden;
+    }
+    .about-img-wrap img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      transition: transform 0.6s ease;
+    }
+    .about-img-wrap:hover img { transform: scale(1.04); }
+    .about-badge {
+      position: absolute;
+      bottom: 2rem;
+      right: -1.5rem;
+      background: var(--accent);
+      color: var(--white);
+      padding: 1.2rem 1.6rem;
+      text-align: center;
+    }
+    .about-badge .stars { font-size: 1.1rem; letter-spacing: 0.1em; }
+    .about-badge .label { font-size: 0.62rem; letter-spacing: 0.14em; text-transform: uppercase; margin-top: 0.3rem; opacity: 0.85; }
+    .about-text { padding: 2rem 0; }
+    .about-features {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.6rem;
+      margin-top: 2rem;
+    }
+    .feature-tag {
+      font-size: 0.68rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      padding: 0.4rem 1rem;
+      border: 1px solid var(--sand);
+      color: var(--brown);
+    }
+
+    /* ── MENU ── */
+    #menu { background: var(--cream); }
+    .menu-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 2px;
+      margin-top: 3.5rem;
+    }
+    .menu-card {
+      background: var(--white);
+      padding: 2.4rem 2rem;
+      transition: background 0.2s;
+    }
+    .menu-card:hover { background: var(--warm); }
+    .menu-card-icon {
+      font-size: 1.6rem;
+      margin-bottom: 1rem;
+    }
+    .menu-card-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.25rem;
+      font-weight: 400;
+      color: var(--dark);
+      margin-bottom: 0.8rem;
+    }
+    .menu-card-items {
+      list-style: none;
+      font-size: 0.82rem;
+      color: var(--muted);
+      line-height: 2;
+    }
+    .menu-card-items li::before {
+      content: '—';
+      margin-right: 0.5rem;
+      color: var(--sand);
+    }
+    .menu-note {
+      margin-top: 2.5rem;
+      font-size: 0.78rem;
+      color: var(--muted);
+      font-style: italic;
+    }
+    .menu-note a { color: var(--accent); text-decoration: none; }
+    .menu-note a:hover { text-decoration: underline; }
+
+    /* ── GALLERY ── */
+    #gallery {
+      background: var(--dark);
+      padding: 7rem 0;
+    }
+    #gallery .section-label { color: var(--sand); padding: 0 5vw; }
+    #gallery .section-title { color: var(--white); padding: 0 5vw; }
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      grid-template-rows: auto auto;
+      gap: 3px;
+      margin-top: 3rem;
+    }
+    .gallery-item {
+      overflow: hidden;
+      aspect-ratio: 1;
+      cursor: pointer;
+    }
+    .gallery-item.tall {
+      grid-row: span 2;
+      aspect-ratio: auto;
+    }
+    .gallery-item img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      transition: transform 0.5s ease, filter 0.5s ease;
+      filter: brightness(0.9);
+    }
+    .gallery-item:hover img {
+      transform: scale(1.06);
+      filter: brightness(1.05);
+    }
+
+    /* ── REVIEWS ── */
+    #reviews { background: var(--warm); }
+    .reviews-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1.5rem;
+      margin-top: 3.5rem;
+    }
+    .review-card {
+      background: var(--white);
+      padding: 2rem;
+      position: relative;
+    }
+    .review-stars {
+      color: var(--accent);
+      font-size: 0.85rem;
+      letter-spacing: 0.1em;
+      margin-bottom: 1rem;
+    }
+    .review-text {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.05rem;
+      font-weight: 300;
+      font-style: italic;
+      line-height: 1.7;
+      color: var(--dark);
+      margin-bottom: 1.2rem;
+    }
+    .review-author {
+      font-size: 0.72rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+    .review-quote {
+      position: absolute;
+      top: 1.5rem;
+      right: 1.8rem;
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 4rem;
+      color: var(--warm);
+      line-height: 1;
+      pointer-events: none;
+    }
+
+    /* ── HOURS & LOCATION ── */
+    #location {
+      background: var(--white);
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 6vw;
+      align-items: start;
+    }
+    .hours-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 2rem;
+    }
+    .hours-table tr {
+      border-bottom: 1px solid var(--warm);
+    }
+    .hours-table td {
+      padding: 0.75rem 0;
+      font-size: 0.85rem;
+    }
+    .hours-table td:first-child {
+      color: var(--muted);
+      font-size: 0.72rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      width: 40%;
+    }
+    .hours-table td:last-child { color: var(--dark); }
+    .hours-table .closed { color: var(--sand); }
+    .map-embed {
+      width: 100%;
+      aspect-ratio: 4/3;
+      border: none;
+      display: block;
+      margin-top: 2rem;
+      filter: grayscale(20%);
+    }
+    .address-block {
+      margin-top: 1.5rem;
+      font-size: 0.85rem;
+      color: var(--muted);
+      line-height: 2;
+    }
+    .address-block strong { color: var(--dark); font-weight: 500; }
+
+    /* ── CTA ── */
+    #cta {
+      background: var(--dark);
+      text-align: center;
+      padding: 8rem 5vw;
+    }
+    #cta .section-label { color: var(--sand); }
+    #cta .section-title { color: var(--white); margin: 0 auto 1.5rem; max-width: 600px; }
+    #cta .section-body { color: rgba(255,255,255,0.5); margin: 0 auto 3rem; }
+    .cta-buttons {
+      display: flex;
+      gap: 1rem;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+    .btn-primary {
+      display: inline-block;
+      padding: 0.9rem 2.8rem;
+      background: var(--accent);
+      color: var(--white);
+      text-decoration: none;
+      font-size: 0.72rem;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      transition: background 0.2s;
+    }
+    .btn-primary:hover { background: var(--brown); }
+    .btn-outline {
+      display: inline-block;
+      padding: 0.9rem 2.8rem;
+      border: 1px solid rgba(255,255,255,0.3);
+      color: rgba(255,255,255,0.75);
+      text-decoration: none;
+      font-size: 0.72rem;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      transition: border-color 0.2s, color 0.2s;
+    }
+    .btn-outline:hover { border-color: rgba(255,255,255,0.8); color: var(--white); }
+
+    /* ── FOOTER ── */
+    footer {
+      background: #1a1108;
+      padding: 3rem 5vw;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+    .footer-logo {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.1rem;
+      color: var(--sand);
+      letter-spacing: 0.08em;
+    }
+    .footer-copy {
+      font-size: 0.7rem;
+      color: rgba(255,255,255,0.25);
+      letter-spacing: 0.08em;
+    }
+    .footer-links {
+      display: flex;
+      gap: 1.8rem;
+      list-style: none;
+    }
+    .footer-links a {
+      font-size: 0.68rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.35);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+    .footer-links a:hover { color: var(--sand); }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 900px) {
+      #about, #location {
+        grid-template-columns: 1fr;
+      }
+      .about-badge { right: 1rem; }
+      .gallery-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+      .gallery-item.tall { grid-row: span 1; aspect-ratio: 1; }
+      .nav-links { display: none; }
+    }
+    @media (max-width: 560px) {
+      section { padding: 5rem 6vw; }
+      .gallery-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <a href="#hero" class="nav-logo">Cafe Sweets</a>
+    <ul class="nav-links">
+      <li><a href="#about">About</a></li>
+      <li><a href="#menu">Menu</a></li>
+      <li><a href="#gallery">Gallery</a></li>
+      <li><a href="#reviews">Reviews</a></li>
+      <li><a href="#location">Visit</a></li>
+    </ul>
+  </nav>
+
+  <!-- HERO -->
+  <section id="hero">
+    <div class="hero-bg"></div>
+    <div class="hero-content">
+      <p class="hero-eyebrow">Arcadia, California · Est. 2024</p>
+      <h1 class="hero-title">Cafe<br>Sweets</h1>
+      <p class="hero-sub">Specialty lattes. Handmade tea cakes. Hearty noodles.<br>A hidden gem worth finding.</p>
+      <a href="#menu" class="hero-cta">Explore the Menu</a>
+    </div>
+    <div class="hero-scroll">Scroll</div>
+  </section>
+
+  <!-- ABOUT -->
+  <section id="about">
+    <div class="about-img-wrap">
+      <img
+        src="https://s3-media0.fl.yelpcdn.com/bphoto/IuUMGrd3K2H9mYv5G5B3Ow/o.jpg"
+        alt="Inside Cafe Sweets"
+        loading="lazy"
+      />
+      <div class="about-badge">
+        <div class="stars">★★★★★</div>
+        <div class="label">5.0 · 90 Reviews</div>
+      </div>
+    </div>
+    <div class="about-text">
+      <p class="section-label">Our Story</p>
+      <h2 class="section-title">A place to slow<br><em>down and savor.</em></h2>
+      <p class="section-body">
+        Tucked into a quiet plaza on East Live Oak Avenue, Cafe Sweets is a family-run café where every drink is brewed to order and every bite is made with care. We're known for our delicate Almond Tea Cakes, signature Crème Brûlée Latte, and the kind of warm, unhurried hospitality that keeps people coming back.
+      </p>
+      <p class="section-body" style="margin-top:1rem;">
+        Whether you're stopping in for a quick matcha, settling in for a bowl of noodles, or challenging a friend to mahjong — this is your place.
+      </p>
+      <div class="about-features">
+        <span class="feature-tag">Board Games</span>
+        <span class="feature-tag">Fish Tanks</span>
+        <span class="feature-tag">Oat Milk · No Charge</span>
+        <span class="feature-tag">Kiosk Ordering</span>
+        <span class="feature-tag">Delivery &amp; Takeout</span>
+        <span class="feature-tag">Health Score: A</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- MENU -->
+  <section id="menu">
+    <p class="section-label">What We Serve</p>
+    <h2 class="section-title">The Menu</h2>
+    <p class="section-body">From freshly brewed specialty lattes to handmade tea cakes and comforting noodle bowls — there's always something to discover.</p>
+
+    <div class="menu-grid">
+      <div class="menu-card">
+        <div class="menu-card-icon">☕</div>
+        <h3 class="menu-card-title">Specialty Lattes</h3>
+        <ul class="menu-card-items">
+          <li>Tiramisu Latte</li>
+          <li>Crème Brûlée Latte</li>
+          <li>Crème Brûlée Matcha</li>
+          <li>Hojicha Latte</li>
+          <li>Dirty Matcha</li>
+          <li>Coffee Cream Foam</li>
+        </ul>
+      </div>
+      <div class="menu-card">
+        <div class="menu-card-icon">🍵</div>
+        <h3 class="menu-card-title">Teas &amp; Boba</h3>
+        <ul class="menu-card-items">
+          <li>Boba Milk Tea</li>
+          <li>Brown Sugar Boba Milk</li>
+          <li>Camellia Green Tea</li>
+          <li>Phoenix Oolong Tea</li>
+          <li>Hibiscus Floral Tea</li>
+          <li>Strawberry Oolong Tea</li>
+        </ul>
+      </div>
+      <div class="menu-card">
+        <div class="menu-card-icon">🍰</div>
+        <h3 class="menu-card-title">Bakery Treats</h3>
+        <ul class="menu-card-items">
+          <li>Almond Tea Cake</li>
+          <li>Carrot Tea Cake · 6 for $15</li>
+          <li>Chocolate Tea Cake</li>
+          <li>Apple Cinnamon Bite</li>
+          <li>Chocolate Muffin · $2.75</li>
+          <li>Banana Muffin · $1.75</li>
+        </ul>
+      </div>
+      <div class="menu-card">
+        <div class="menu-card-icon">🍜</div>
+        <h3 class="menu-card-title">House Specials</h3>
+        <ul class="menu-card-items">
+          <li>Dry Noodles</li>
+          <li>Noodle Soup</li>
+          <li>Beef Noodle Soup</li>
+          <li>Chicken Curry Noodle Soup</li>
+          <li>Birria Ramen</li>
+          <li>Birria Tacos</li>
+        </ul>
+      </div>
+      <div class="menu-card">
+        <div class="menu-card-icon">🍮</div>
+        <h3 class="menu-card-title">Asian Desserts</h3>
+        <ul class="menu-card-items">
+          <li>Thai Red Ruby · $7.95</li>
+          <li>Mango Sticky Rice</li>
+          <li>Chinese Snow Fungus</li>
+          <li>Chinese Grass Jelly</li>
+          <li>3-Color Dessert</li>
+        </ul>
+      </div>
+      <div class="menu-card">
+        <div class="menu-card-icon">🍟</div>
+        <h3 class="menu-card-title">Snacks</h3>
+        <ul class="menu-card-items">
+          <li>Fried Dumplings</li>
+          <li>Mini Egg Rolls</li>
+          <li>Popcorn Chicken</li>
+          <li>Seasoned Fries</li>
+          <li>Onion Rings</li>
+        </ul>
+      </div>
+    </div>
+
+    <p class="menu-note">
+      Full menu and online ordering at <a href="https://www.cafesweets618.com" target="_blank">cafesweets618.com</a> &nbsp;·&nbsp;
+      Buy 2 drinks, get 1 free &nbsp;·&nbsp; Oat milk at no extra charge
+    </p>
+  </section>
+
+  <!-- GALLERY -->
+  <section id="gallery">
+    <p class="section-label">Inside the Café</p>
+    <h2 class="section-title" style="color:var(--white);">A Taste of<br><em>What Awaits</em></h2>
+    <div class="gallery-grid">
+      <div class="gallery-item tall">
+        <img src="https://s3-media0.fl.yelpcdn.com/bphoto/sCOzkoTpJCgDfMjgHTwWfA/o.jpg" alt="Carrot Tea Cakes" loading="lazy" />
+      </div>
+      <div class="gallery-item">
+        <img src="https://s3-media0.fl.yelpcdn.com/bphoto/wLb6mZ9cNLOwkfY717XqGg/o.jpg" alt="Tiramisu Latte and Tea Cake" loading="lazy" />
+      </div>
+      <div class="gallery-item">
+        <img src="https://s3-media0.fl.yelpcdn.com/bphoto/CSMpVb5eM0xDGJHavjEDBw/o.jpg" alt="Thai Red Ruby Dessert" loading="lazy" />
+      </div>
+      <div class="gallery-item">
+        <img src="https://s3-media0.fl.yelpcdn.com/bphoto/Z1U_Q1w9-I4ANuh6nwi5BQ/o.jpg" alt="Strawberry Matcha" loading="lazy" />
+      </div>
+      <div class="gallery-item">
+        <img src="https://s3-media0.fl.yelpcdn.com/bphoto/fdRPP8a4t3Up7RPpOrNjNw/o.jpg" alt="Mango Smoothie" loading="lazy" />
+      </div>
+      <div class="gallery-item">
+        <img src="https://s3-media0.fl.yelpcdn.com/bphoto/mq6fCImyVnzIIluI20Qj4Q/o.jpg" alt="Egg Rolls and Noodle Soup" loading="lazy" />
+      </div>
+      <div class="gallery-item">
+        <img src="https://s3-media0.fl.yelpcdn.com/bphoto/fLwfx3gDQ3D4lAxq068AmQ/o.jpg" alt="Hojicha Cream Foam" loading="lazy" />
+      </div>
+    </div>
+  </section>
+
+  <!-- REVIEWS -->
+  <section id="reviews">
+    <p class="section-label">What People Say</p>
+    <h2 class="section-title">5.0 Stars.<br><em>Every time.</em></h2>
+    <div class="reviews-grid">
+      <div class="review-card">
+        <div class="review-quote">"</div>
+        <div class="review-stars">★★★★★</div>
+        <p class="review-text">Welcoming and cozy atmosphere perfect for a night out with friends or a date. Tons of games — mahjong, Uno. The Hojicha Latte was made fresh and tasted great. Overall 10/10.</p>
+        <p class="review-author">Nicholas D. · Jan 2026</p>
+      </div>
+      <div class="review-card">
+        <div class="review-quote">"</div>
+        <div class="review-stars">★★★★★</div>
+        <p class="review-text">Cafe Sweets has it all — noodles, pastries, snacks, drinks, and cute well-kept fish tanks to look at while you wait. There's also tons of seating. Great spot to meet up with friends and family.</p>
+        <p class="review-author">Lauren B. (Elite) · Feb 2026</p>
+      </div>
+      <div class="review-card">
+        <div class="review-quote">"</div>
+        <div class="review-stars">★★★★★</div>
+        <p class="review-text">The almond tea cakes were so delicate and refreshing. Very quiet in there, so good for studying. Shout out to the staff — her voice is so sweet.</p>
+        <p class="review-author">Nik J. (Elite) · Jan 2026</p>
+      </div>
+      <div class="review-card">
+        <div class="review-quote">"</div>
+        <div class="review-stars">★★★★★</div>
+        <p class="review-text">Such a cute, delicious mom and pop cafe. The owners are so nice and always offer my toddler a free muffin when we stop by. I love supporting small businesses.</p>
+        <p class="review-author">Justine H. · Jan 2026</p>
+      </div>
+      <div class="review-card">
+        <div class="review-quote">"</div>
+        <div class="review-stars">★★★★★</div>
+        <p class="review-text">This might be my new go-to spot in the city! Tucked away in an older plaza but such a hidden gem. Great pricing, especially with the buy-two-get-one-free deal.</p>
+        <p class="review-author">Maria A. (Elite) · Nov 2025</p>
+      </div>
+      <div class="review-card">
+        <div class="review-quote">"</div>
+        <div class="review-stars">★★★★★</div>
+        <p class="review-text">Good food, friendly staff, comfortable environment. What else needs to be said?</p>
+        <p class="review-author">Albert L. (Elite) · Jun 2025</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- HOURS & LOCATION -->
+  <section id="location">
+    <div>
+      <p class="section-label">Hours</p>
+      <h2 class="section-title">When to<br><em>Find Us</em></h2>
+      <table class="hours-table">
+        <tbody>
+          <tr><td>Monday</td><td class="closed">Closed</td></tr>
+          <tr><td>Tuesday</td><td class="closed">Closed</td></tr>
+          <tr><td>Wednesday</td><td>10:00 AM – 4:00 PM</td></tr>
+          <tr><td>Thursday</td><td>10:00 AM – 4:00 PM</td></tr>
+          <tr><td>Friday</td><td>10:00 AM – 4:00 PM</td></tr>
+          <tr><td>Saturday</td><td>10:00 AM – 4:00 PM</td></tr>
+          <tr><td>Sunday</td><td>10:00 AM – 4:00 PM</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div>
+      <p class="section-label">Location</p>
+      <h2 class="section-title">618 East<br><em>Live Oak Ave</em></h2>
+      <iframe
+        class="map-embed"
+        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3303.5!2d-118.0285!3d34.1397!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x80c2d5b1e1e1e1e1%3A0x1!2s618+E+Live+Oak+Ave%2C+Arcadia%2C+CA+91006!5e0!3m2!1sen!2sus!4v1"
+        allowfullscreen=""
+        loading="lazy"
+        referrerpolicy="no-referrer-when-downgrade"
+        title="Cafe Sweets Location"
+      ></iframe>
+      <div class="address-block">
+        <strong>618 East Live Oak Ave</strong><br>
+        Arcadia, CA 91006<br>
+        <br>
+        <a href="https://www.cafesweets618.com" target="_blank" style="color:var(--accent);text-decoration:none;">cafesweets618.com</a>
+        &nbsp;·&nbsp;
+        <a href="https://www.yelp.com/biz/cafe-sweets-arcadia" target="_blank" style="color:var(--accent);text-decoration:none;">Yelp</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section id="cta">
+    <p class="section-label">Come Visit</p>
+    <h2 class="section-title">Your next favorite<br><em>café is waiting.</em></h2>
+    <p class="section-body">Open Wednesday through Sunday, 10 AM – 4 PM. Walk-ins welcome. Order online for pickup or delivery.</p>
+    <div class="cta-buttons">
+      <a href="https://www.cafesweets618.com" target="_blank" class="btn-primary">Order Online</a>
+      <a href="https://www.yelp.com/biz/cafe-sweets-arcadia" target="_blank" class="btn-outline">Read Reviews</a>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <span class="footer-logo">Cafe Sweets</span>
+    <ul class="footer-links">
+      <li><a href="#about">About</a></li>
+      <li><a href="#menu">Menu</a></li>
+      <li><a href="#location">Visit</a></li>
+      <li><a href="https://www.cafesweets618.com" target="_blank">Website</a></li>
+    </ul>
+    <span class="footer-copy">618 E Live Oak Ave · Arcadia, CA · Wed–Sun 10–4</span>
+  </footer>
+
+  <script>
+    // Subtle nav background on scroll
+    const nav = document.querySelector('nav');
+    window.addEventListener('scroll', () => {
+      nav.style.background = window.scrollY > 60
+        ? 'rgba(247,243,238,0.98)'
+        : 'rgba(247,243,238,0.92)';
+    });
+
+    // Fade-in on scroll
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if (e.isIntersecting) {
+          e.target.style.opacity = '1';
+          e.target.style.transform = 'translateY(0)';
+        }
+      });
+    }, { threshold: 0.1 });
+
+    document.querySelectorAll('.menu-card, .review-card, .gallery-item').forEach(el => {
+      el.style.opacity = '0';
+      el.style.transform = 'translateY(20px)';
+      el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+      observer.observe(el);
+    });
+  </script>
+</body>
+</html>

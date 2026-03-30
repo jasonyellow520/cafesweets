@@ -70,6 +70,27 @@
     }
     .nav-links a:hover { color: var(--accent); }
 
+    /* ── HAMBURGER (mobile) ── */
+    .nav-hamburger {
+      display: none;
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 0.5rem;
+      z-index: 101;
+    }
+    .nav-hamburger span {
+      display: block;
+      width: 20px;
+      height: 2px;
+      background: var(--dark);
+      margin: 4px 0;
+      transition: transform 0.3s, opacity 0.3s;
+    }
+    .nav-hamburger.open span:nth-child(1) { transform: rotate(45deg) translate(3px, 5px); }
+    .nav-hamburger.open span:nth-child(2) { opacity: 0; }
+    .nav-hamburger.open span:nth-child(3) { transform: rotate(-45deg) translate(3px, -5px); }
+
     /* ── HERO ── */
     #hero {
       position: relative;
@@ -491,7 +512,30 @@
         grid-template-columns: repeat(2, 1fr);
       }
       .gallery-item.tall { grid-row: span 1; aspect-ratio: 1; }
-      .nav-links { display: none; }
+      .nav-hamburger { display: block; }
+      .nav-links {
+        display: none;
+        position: fixed;
+        top: 64px;
+        left: 0;
+        right: 0;
+        flex-direction: column;
+        gap: 0;
+        background: rgba(247,243,238,0.98);
+        backdrop-filter: blur(12px);
+        border-bottom: 1px solid rgba(122,92,62,0.12);
+        padding: 1rem 5vw;
+      }
+      .nav-links.open {
+        display: flex;
+      }
+      .nav-links a {
+        display: block;
+        padding: 0.75rem 0;
+        font-size: 0.8rem;
+        border-bottom: 1px solid rgba(122,92,62,0.08);
+      }
+      .nav-links li:last-child a { border-bottom: none; }
     }
     @media (max-width: 560px) {
       section { padding: 5rem 6vw; }
@@ -504,6 +548,9 @@
   <!-- NAV -->
   <nav>
     <a href="#hero" class="nav-logo">Cafe Sweets</a>
+    <button class="nav-hamburger" aria-label="Toggle menu">
+      <span></span><span></span><span></span>
+    </button>
     <ul class="nav-links">
       <li><a href="#about">About</a></li>
       <li><a href="#menu">Menu</a></li>
@@ -785,6 +832,20 @@
       nav.style.background = window.scrollY > 60
         ? 'rgba(247,243,238,0.98)'
         : 'rgba(247,243,238,0.92)';
+    });
+
+    // Mobile hamburger menu toggle
+    const hamburger = document.querySelector('.nav-hamburger');
+    const navLinks = document.querySelector('.nav-links');
+    hamburger.addEventListener('click', () => {
+      hamburger.classList.toggle('open');
+      navLinks.classList.toggle('open');
+    });
+    navLinks.querySelectorAll('a').forEach(link => {
+      link.addEventListener('click', () => {
+        hamburger.classList.remove('open');
+        navLinks.classList.remove('open');
+      });
     });
 
     // Fade-in on scroll

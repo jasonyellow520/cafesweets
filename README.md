@@ -9,7 +9,7 @@
 </p>
 
 <p align="center">
-  <a href="https://www.cafesweets618.com" target="_blank">cafesweets618.com</a> · <a href="https://www.yelp.com/biz/cafe-sweets-arcadia" target="_blank">Yelp</a>
+  <a href="https://jasonyellow520.github.io/cafesweets" target="_blank">cafesweets618.com</a> · <a href="https://www.yelp.com/biz/cafe-sweets-arcadia" target="_blank">Yelp</a>
 </p>
 
 ---

@@ -1,5 +1,5 @@
 <h1 align="center">Cafe Sweets</h1>
-<h3 align="center">A modern, responsive website for a family-run cafe in Arcadia, CA</h3>
+<h3 align="center">A modern, responsive website for a cafe in Arcadia, CA</h3>
 
 <p align="center">
   <img src="https://img.shields.io/badge/HTML5-E34F26?logo=html5&logoColor=white" alt="HTML5"/>
